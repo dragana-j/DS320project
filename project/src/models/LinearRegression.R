@@ -47,3 +47,6 @@ print(head(df2$Price))
 
 #Finding our root mean squared to assess our model
 rmse(test_y,prediction$Pred_Price)
+
+#Writing our pred into csv 
+fwrite(prediction,'./project/volume/data/interim/LRpred.csv')
