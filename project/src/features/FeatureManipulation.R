@@ -2,6 +2,7 @@ rm(list=ls())
 
 #Loading Packages
 library(caret)
+library(plyr)
 library(data.table)
 library(dplyr)
 library(ggplot2)
@@ -12,11 +13,16 @@ set.seed(9001)
 
 # Loading in the Melbourne data 
 df <- read.csv("~/Downloads/Melbourne_housing_FULL 2.csv")
+housing2 <- read.csv("~/Downloads/SydneyHousePrices.csv")
+
+#Integrating data frames 
+mergedDF<- rbind.fill(df,housing2)
 
 #Understanding our data 
 summary(df)
 
 #Checking correlations through the numeric values 
+#Changing characters to num 
 df$Propertycount <- as.numeric(as.character(df$Propertycount))
 df$Distance <- as.numeric(as.character(df$Distance)
                           )
@@ -26,7 +32,7 @@ numericvalues <- df[,c("Price","Rooms","Bedroom2","Bathroom",
 # Find how many NA values there are 
 sum(is.na(numericvalues))
 
-#Set the NA to = 0 
+#Omit 
 numericvalues<- na.omit(numericvalues)
 
 #Snap shot of the correlation values 
